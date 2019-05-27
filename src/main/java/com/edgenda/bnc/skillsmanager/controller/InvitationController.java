@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/invitation")
+@RequestMapping(path = "/invitations")
 public class InvitationController {
 
     private final InvitationService is;
@@ -20,18 +20,18 @@ public class InvitationController {
         this.is = is;
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Invitation> getAllInvitation(){
         return is.getAllInvitation();
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Invitation createInvitation(@RequestBody Invitation invitation){
         return is.createInvitation(invitation);
     }
 
-    @RequestMapping(path = "/id", method = RequestMethod.PUT)
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public void updateInvitation (@RequestBody Invitation invitation){
         is.updateInvitation(invitation);
     }
@@ -46,7 +46,7 @@ public class InvitationController {
 //        return is.getInviByEventId(eventId);
 //    }
 
-    @RequestMapping(path = "/", method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.DELETE)
     public void deleteInvitation(@PathVariable long id){
         is.deleteInvitation(id);
     }
