@@ -93,7 +93,7 @@ public class EventService {
         System.out.println("hoho ldtEndTime format "+ ldtEndTime.toString() );
         if(Objects.nonNull(startTime) || Objects.nonNull(endTime)){
 
-            return eventRepository.findByPeriod(ldtStartTime,ldtEndTime);
+            return eventRepository.findByPeriod(startTime,endTime);
 
         }
         throw new InvalidDataException("Request parameters are not valid");
