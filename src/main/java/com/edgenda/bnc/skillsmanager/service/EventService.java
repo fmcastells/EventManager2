@@ -83,8 +83,9 @@ public class EventService {
 
     public List<Event> getEventsBetweenSpecificPeriod(LocalDateTime startTime, LocalDateTime endTime){
         if(Objects.nonNull(startTime) || Objects.nonNull(endTime)){
-            // TODO: Implement logic
-            return new ArrayList<>();
+
+            return eventRepository.findByPeriod(startTime,endTime);
+
         }
         throw new InvalidDataException("Request parameters are not valid");
     }
