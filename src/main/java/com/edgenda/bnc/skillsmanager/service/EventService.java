@@ -86,7 +86,7 @@ public class EventService {
 
         System.out.println("hiho startTime format "+ startTime );
         System.out.println("hiho endTime format "+ endTime );
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime ldtStartTime = LocalDateTime.parse(startTime, formatter);
         LocalDateTime ldtEndTime = LocalDateTime.parse(endTime, formatter);
         System.out.println("hoho ldtStartTime format "+ ldtStartTime.toString() );
