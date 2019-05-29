@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,10 +82,15 @@ public class EventService {
         throw new UnknownEventException(id);
     }
 
-    public List<Event> getEventsBetweenSpecificPeriod(LocalDateTime startTime, LocalDateTime endTime){
+    public List<Event> getEventsBetweenSpecificPeriod(String startTime, String endTime){
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime ldtStartTime = LocalDateTime.parse(startTime, formatter);
+        LocalDateTime ldtEndTime = LocalDateTime.parse(endTime, formatter);
+
         if(Objects.nonNull(startTime) || Objects.nonNull(endTime)){
 
-            return eventRepository.findByPeriod(startTime,endTime);
+            return eventRepository.findByPeriod(ldtStartTime,ldtEndTime);
 
         }
         throw new InvalidDataException("Request parameters are not valid");
