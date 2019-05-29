@@ -12,8 +12,9 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh "docker build -t localhost:5000/eventmanager ."
-                sh "docker push localhost:5000/eventmanager"
+                sh "docker build -t localhost:5000/eventmanager:latest ."
+                sh "docker tag localhost:5000/eventmanager:latest localhost:5000/eventmanager:latest"
+                sh "docker push localhost:5000/eventmanager:latest"
             }
         }
         stage('Deploy') {
