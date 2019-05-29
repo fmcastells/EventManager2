@@ -1,6 +1,7 @@
 package com.edgenda.bnc.skillsmanager.service;
 
 import com.edgenda.bnc.skillsmanager.model.Guest;
+import com.edgenda.bnc.skillsmanager.model.Invitation;
 import com.edgenda.bnc.skillsmanager.repository.GuestRepository;
 import com.edgenda.bnc.skillsmanager.service.exception.UnknownGuestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class GuestService {
     }
 
 
-
-
-
+    public List<Invitation> getGuestInvitation(Long id) {
+        return guestRepository.findInvitationByGuest(id);
+    }
 }
