@@ -18,6 +18,8 @@ pipeline {
         }
         stage('Deploy') {
                     steps {
+                        sh "docker stop eventmanager"
+                        sh "docker rm eventmanager"
                         sh "docker run -d --name eventmanager -p 8081:8081 localhost:5000/eventmanager:latest"
                     }
                 }
