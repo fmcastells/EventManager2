@@ -5,13 +5,9 @@ import com.edgenda.bnc.skillsmanager.model.Invitation;
 import com.edgenda.bnc.skillsmanager.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -65,5 +61,8 @@ public class EventController {
 //    public Event addGuestEvent(@RequestBody Event event) {
 //        return es.createEvent(event);
 //    }
-
+    @RequestMapping(path = "", method = RequestMethod.GET)
+    public List<Event> getEventsBetweenSpecificPeriod(@RequestParam LocalDateTime startdate, @RequestParam LocalDateTime enddate ) {
+        return es.getEventsBetweenSpecificPeriod(startdate, enddate);
+}
 }
