@@ -57,8 +57,8 @@ public class GuestController {
         gs.deleteGuest(id);
     }
 
-    @RequestMapping(path = "/{id}/invitations", method = RequestMethod.GET)
-    public List<Invitation> getGuestInvitation(@PathVariable Long id) {
-        return gs.getGuestInvitation(id);
-    }
+//    @RequestMapping(path = "/{id}/invitations", method = RequestMethod.GET)
+//    public List<Invitation> getGuestInvitation(@PathVariable Long id) {
+//        return gs.getGuestInvitation(id);
+//    }
 }
