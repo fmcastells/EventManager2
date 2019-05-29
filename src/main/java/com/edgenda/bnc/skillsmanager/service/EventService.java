@@ -84,10 +84,13 @@ public class EventService {
 
     public List<Event> getEventsBetweenSpecificPeriod(String startTime, String endTime){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        System.out.println("hiho startTime format "+ startTime );
+        System.out.println("hiho endTime format "+ endTime );
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-ddTHH:mm");
         LocalDateTime ldtStartTime = LocalDateTime.parse(startTime, formatter);
         LocalDateTime ldtEndTime = LocalDateTime.parse(endTime, formatter);
-
+        System.out.println("hoho ldtStartTime format "+ ldtStartTime.toString() );
+        System.out.println("hoho ldtEndTime format "+ ldtEndTime.toString() );
         if(Objects.nonNull(startTime) || Objects.nonNull(endTime)){
 
             return eventRepository.findByPeriod(ldtStartTime,ldtEndTime);
