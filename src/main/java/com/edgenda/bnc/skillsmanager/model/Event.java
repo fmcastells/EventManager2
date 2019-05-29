@@ -24,9 +24,9 @@ public class Event {
     private String description;
 
     @NotEmpty
-    private String startDate;
+    private LocalDateTime startDate;
     @NotEmpty
-    private String endDate;
+    private LocalDateTime endDate;
     @NotEmpty
     private String location;
 
@@ -42,7 +42,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, String name, String description, String startDate,String endDate, String location, List<Guest> guests, List<Invitation> invitations) {
+    public Event(Long id, String name, String description, LocalDateTime startDate,LocalDateTime endDate, String location, List<Guest> guests, List<Invitation> invitations) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -55,7 +55,7 @@ public class Event {
     }
 
     @PersistenceConstructor
-    public Event(String name, String description, String startDate,String endDate, String location, List<Guest> guests, List<Invitation> invitations) {
+    public Event(String name, String description, LocalDateTime startDate,LocalDateTime endDate, String location, List<Guest> guests, List<Invitation> invitations) {
         this.name = name;
         this.description = description;
         this.guests = guests;
@@ -89,19 +89,19 @@ public class Event {
         this.description = description;
     }
 
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
