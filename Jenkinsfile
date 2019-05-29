@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
 
     stages {
         stage('Build&Test') {
@@ -16,5 +16,10 @@ pipeline {
                 sh "docker push localhost:5000/eventmanager:latest"
             }
         }
+        stage('Deploy') {
+                    steps {
+                        sh "docker run -d --name eventmanager -p 8081:8081 localhost:5000/eventmanager:latest"
+                    }
+                }
     }
 }
