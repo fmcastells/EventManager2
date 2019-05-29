@@ -27,12 +27,12 @@ public class Invitation {
     private String guestId;
 
     @NotEmpty
-    private int state;
+    private String state;
 
     public Invitation() {
     }
 
-    public Invitation(Long id, String eventId, String guestId, int status) {
+    public Invitation(Long id, String eventId, String guestId, String status) {
         this.id = id;
         this.eventId = eventId;
         this.guestId = guestId;
@@ -40,7 +40,7 @@ public class Invitation {
     }
 
     @PersistenceConstructor
-    public Invitation(String eventId, String guestId, int status) {
+    public Invitation(String eventId, String guestId, String status) {
         this.eventId = eventId;
         this.guestId = guestId;
         this.state = status;
@@ -70,13 +70,11 @@ public class Invitation {
         this.guestId = guestId;
     }
 
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(String state) {
         this.state = state;
     }
-
-
 }
