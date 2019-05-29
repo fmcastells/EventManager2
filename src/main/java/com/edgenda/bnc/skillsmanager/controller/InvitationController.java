@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/invitations")
 public class InvitationController {
-
+//TO DELETE
     private final InvitationService is;
 
     @Autowired

@@ -15,9 +15,9 @@ public class Invitation {
     private Long id;
 
     enum status {
-        ACCEPT,
+        ACCEPTED,
         PENDING,
-        REJECT
+        REFUSED
     }
 
     @NotEmpty
