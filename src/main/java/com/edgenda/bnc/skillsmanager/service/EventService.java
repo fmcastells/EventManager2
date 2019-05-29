@@ -82,21 +82,12 @@ public class EventService {
         throw new UnknownEventException(id);
     }
 
-    public List<Event> getEventsBetweenSpecificPeriod(String startTime, String endTime){
+    public List<Event> getEventsBetweenSpecificPeriod(String startTime){
 
-        System.out.println("hiho startTime format "+ startTime );
-        System.out.println("hiho endTime format "+ endTime );
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime ldtStartTime = LocalDateTime.parse(startTime, formatter);
-        LocalDateTime ldtEndTime = LocalDateTime.parse(endTime, formatter);
-        System.out.println("hoho ldtStartTime format "+ ldtStartTime.toString() );
-        System.out.println("hoho ldtEndTime format "+ ldtEndTime.toString() );
-        if(Objects.nonNull(startTime) || Objects.nonNull(endTime)){
 
-            return eventRepository.findByPeriod(startTime,endTime);
 
-        }
-        throw new InvalidDataException("Request parameters are not valid");
+            return eventRepository.findByPeriod(startTime);
+
     }
 
     public Event addEventToGuest(Long guestId, Long eventID){
