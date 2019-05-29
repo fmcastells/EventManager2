@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EventService {
@@ -73,35 +75,27 @@ public class EventService {
     public void deleteCancelledEvent(Long id){
         Assert.notNull(id, "ID cannot be null");
         Event event = eventRepository.getOne(id);
-        if(event == null){
-            throw new UnknownEventException(id);
-        } //TODO: check if event is cacelled or not
-        else {
+        if(Objects.nonNull(event)){
             eventRepository.delete(id);
         }
+        throw new UnknownEventException(id);
     }
 
     public List<Event> getEventsBetweenSpecificPeriod(LocalDateTime startTime, LocalDateTime endTime){
-        if(startTime == null || endTime == null){
-            throw new InvalidDataException("Request parameters are not valid");
-        } else {
-            //TODO: get list from event repo
+        if(Objects.nonNull(startTime) || Objects.nonNull(endTime)){
+            // TODO: Implement logic
+            return new ArrayList<>();
         }
-        return null;
+        throw new InvalidDataException("Request parameters are not valid");
     }
 
     public Event addEventToGuest(Long guestId, Long eventID){
-
         Guest existingGuest = guestService.getGuestById(guestId);
         Event existingEvent = getEventById(eventID);
-
-        if(existingGuest != null && existingEvent != null){
+        if(Objects.nonNull(existingGuest) && Objects.nonNull(existingEvent)){
             existingEvent.setGuests(Arrays.asList(existingGuest));
             return eventRepository.save(existingEvent);
         }
         return null;
     }
-
-
-
 }

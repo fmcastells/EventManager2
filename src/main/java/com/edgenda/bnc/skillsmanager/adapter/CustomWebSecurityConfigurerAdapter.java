@@ -30,10 +30,10 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/events/**").hasRole("ADMIN")//USER role can access /users/**
-                .antMatchers("/guests/**").hasRole("USER")//ADMIN role can access /admin/**
-                .antMatchers("/invitations/**").permitAll()// anyone can access /quests/**
-                .anyRequest().authenticated()//any other request just need authentication
+                .antMatchers("/events/**").hasRole("ADMIN")
+                .antMatchers("/guests/**").hasRole("USER")
+                .antMatchers("/invitations/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin();//enable form login
     }

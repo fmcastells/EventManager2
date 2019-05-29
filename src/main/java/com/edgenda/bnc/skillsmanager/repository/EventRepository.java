@@ -20,6 +20,4 @@ public interface EventRepository extends JpaRepository<Event, Long>, CrudReposit
 
     @Query("SELECT event FROM Event event JOIN event.guests guests WHERE event.startDate >= ?1 AND event.endDate <= ?2")
     List<Event> findByPeriod(LocalDateTime startDate, LocalDateTime endDate);
-
-    //List<Event> findByOrganisateur(Long organizerID);
 }
