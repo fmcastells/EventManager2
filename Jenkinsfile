@@ -2,6 +2,11 @@ pipeline {
   agent any
 
     stages {
+            stage('Prepare') {
+                steps {
+                    sh "docker login -u fcastells -p Timao71910"
+                }
+            }
         stage('Build&Test') {
             agent {
                 docker { image 'maven:3.6.1-jdk-8' }
