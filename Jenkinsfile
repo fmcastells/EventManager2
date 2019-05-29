@@ -12,14 +12,12 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh "docker build -t localhost:5000/eventmanager:latest ."
-                sh "docker push localhost:5000/eventmanager:latest"
+                sh "docker build -t localhost:5000/eventmanager ."
+                sh "docker push localhost:5000/eventmanager"
             }
         }
         stage('Deploy') {
                     steps {
-                        sh "docker stop eventmanager"
-                        sh "docker rm eventmanager"
                         sh "docker run -d --name eventmanager -p 8081:8081 localhost:5000/eventmanager:latest"
                     }
                 }
