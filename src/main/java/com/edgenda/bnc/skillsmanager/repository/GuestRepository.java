@@ -1,6 +1,7 @@
 package com.edgenda.bnc.skillsmanager.repository;
 
 import com.edgenda.bnc.skillsmanager.model.Guest;
+import com.edgenda.bnc.skillsmanager.model.Invitation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -2,6 +2,7 @@ package com.edgenda.bnc.skillsmanager.controller;
 
 
 import com.edgenda.bnc.skillsmanager.model.Guest;
+import com.edgenda.bnc.skillsmanager.model.Invitation;
 import com.edgenda.bnc.skillsmanager.service.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,6 @@ public class GuestController {
     public GuestController(GuestService es) {
         this.gs = es;
     }
-
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Guest> getAllGuest(){
@@ -56,4 +56,9 @@ public class GuestController {
     public void deleteGuest(@PathVariable long id){
         gs.deleteGuest(id);
     }
+
+//    @RequestMapping(path = "/{id}/invitations", method = RequestMethod.GET)
+//    public List<Invitation> getGuestInvitation(@PathVariable Long id) {
+//        return gs.getGuestInvitation(id);
+//    }
 }

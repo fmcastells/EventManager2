@@ -15,24 +15,24 @@ public class Invitation {
     private Long id;
 
     enum status {
-        ACCEPT,
+        ACCEPTED,
         PENDING,
-        REJECT
+        REFUSED
     }
 
     @NotEmpty
-    private String eventId;
+    private long eventId;
 
     @NotEmpty
-    private String guestId;
+    private long guestId;
 
     @NotEmpty
-    private int state;
+    private String state;
 
     public Invitation() {
     }
 
-    public Invitation(Long id, String eventId, String guestId, int status) {
+    public Invitation(Long id, long eventId, long guestId, String status) {
         this.id = id;
         this.eventId = eventId;
         this.guestId = guestId;
@@ -40,7 +40,7 @@ public class Invitation {
     }
 
     @PersistenceConstructor
-    public Invitation(String eventId, String guestId, int status) {
+    public Invitation(long eventId, long guestId, String status) {
         this.eventId = eventId;
         this.guestId = guestId;
         this.state = status;
@@ -54,29 +54,27 @@ public class Invitation {
         this.id = id;
     }
 
-    public String getEventId() {
+    public long getEventId() {
         return eventId;
     }
 
-    public void setEventId(String eventId) {
+    public void setEventId(long eventId) {
         this.eventId = eventId;
     }
 
-    public String getGuestId() {
+    public long getGuestId() {
         return guestId;
     }
 
-    public void setGuestId(String guestId) {
+    public void setGuestId(long guestId) {
         this.guestId = guestId;
     }
 
-    public int getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(String state) {
         this.state = state;
     }
-
-
 }
