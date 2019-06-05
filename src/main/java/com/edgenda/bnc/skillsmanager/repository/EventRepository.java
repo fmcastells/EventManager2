@@ -18,6 +18,6 @@ public interface EventRepository extends JpaRepository<Event, Long>, CrudReposit
     @Query("SELECT event FROM Event event JOIN event.guests guests WHERE guests.id = ?1")
     List<Event> findByGuestId(Long guestId);
 
-    @Query("SELECT event FROM Event event JOIN event.guests guests WHERE event.startDate like ?1%")
-    List<Event> findByPeriod(String startDate);
+    @Query("SELECT event FROM Event event JOIN event.guests guests WHERE event.startDate between ?1 and ?2")
+    List<Event> findByPeriod(LocalDateTime from, LocalDateTime to);
 }

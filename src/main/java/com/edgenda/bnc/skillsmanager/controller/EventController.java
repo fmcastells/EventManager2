@@ -62,7 +62,7 @@ public class EventController {
 //        return es.createEvent(event);
 //    }
     @RequestMapping(path = "/period",method = RequestMethod.GET)
-    public List<Event> getEventsBetweenSpecificPeriod(@RequestParam String startdate ) {
-        return es.getEventsBetweenSpecificPeriod(startdate);
+    public List<Event> getEventsBetweenSpecificPeriod(@RequestParam LocalDateTime from, @RequestParam LocalDateTime to ) {
+        return es.getEventsBetweenSpecificPeriod(from,to);
 }
 }

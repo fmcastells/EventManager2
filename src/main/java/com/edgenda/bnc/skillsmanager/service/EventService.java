@@ -82,11 +82,11 @@ public class EventService {
         throw new UnknownEventException(id);
     }
 
-    public List<Event> getEventsBetweenSpecificPeriod(String startTime){
+    public List<Event> getEventsBetweenSpecificPeriod(LocalDateTime from, LocalDateTime to){
 
 
 
-            return eventRepository.findByPeriod(startTime);
+            return eventRepository.findByPeriod(from,to);
 
     }
 
