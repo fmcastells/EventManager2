@@ -83,11 +83,7 @@ public class EventService {
     }
 
     public List<Event> getEventsBetweenSpecificPeriod(LocalDateTime from, LocalDateTime to){
-
-
-
             return eventRepository.findByPeriod(from,to);
-
     }
 
     public Event addEventToGuest(Long guestId, Long eventID){
