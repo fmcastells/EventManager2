@@ -9,8 +9,8 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh "docker build -t localhost:5000/eventmanager:{branch} ."
-                sh "docker push localhost:5000/eventmanager:{branch}"
+                sh "docker build -t localhost:5000/eventmanager:{env.BRANCH_NAME} ."
+                sh "docker push localhost:5000/eventmanager:{env.BRANCH_NAME}"
             }
         }
         stage('Deploy') {
@@ -18,7 +18,7 @@ pipeline {
                     steps {
                         sh "docker stop eventmanager"
                         sh "docker rm eventmanager"
-                        sh "docker run -d --name eventmanager -p 8081:8081 localhost:5000/eventmanager:{branch}"
+                        sh "docker run -d --name eventmanager -p 8081:8081 localhost:5000/eventmanager:{env.BRANCH_NAME}"
                     }
                 }
     }
