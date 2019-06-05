@@ -1,7 +1,7 @@
 package com.edgenda.bnc.skillsmanager.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.PersistenceConstructor;
+import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import java.time.LocalDateTime;
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.annotation.PersistenceConstructor;
 @Entity
 public class Event {
 
@@ -26,6 +29,7 @@ public class Event {
 
     @NotEmpty
     @Column(name = "startDate", columnDefinition = "TIMESTAMP")
+    @JsonProperty("startDate")
     private LocalDateTime startDate;
 
     @NotEmpty
