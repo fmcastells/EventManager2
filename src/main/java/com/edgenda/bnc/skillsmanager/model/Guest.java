@@ -1,62 +1,41 @@
 package com.edgenda.bnc.skillsmanager.model;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.PersistenceConstructor;
 
+/**
+ * A Guest.
+ */
 @Entity
-public class Guest {
+@Table(name = "guest")
+public class Guest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotEmpty
+    @Column(name = "first_name")
     private String firstName;
 
-    @NotEmpty
+    @Column(name = "last_name")
     private String lastName;
 
-    @Email
-    @NotEmpty
+    @Column(name = "email")
     private String email;
 
-    @ManyToMany
-    @JoinTable(name = "GUEST_EVENT")
-    private List<Event> events;
-
-    @ManyToMany
-    @JoinTable(name = "INVITATION_GUEST_LIST")
-    private List<Invitation> invitations;
-
-    public Guest() {
-    }
-
-    public Guest(Long id, String firstName, String lastName, String email, List<Event> events, List<Invitation> invitations) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.events = events;
-        this.invitations = invitations;
-    }
-
-    @PersistenceConstructor
-    public Guest(String firstName, String lastName, String email, List<Event> events,  List<Invitation> invitations) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.events = events;
-        this.invitations = invitations;
-    }
+    @OneToMany(mappedBy = "guest")
+    private Set<Invitation> invitations = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -90,19 +69,21 @@ public class Guest {
         this.email = email;
     }
 
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
-    public List<Invitation> getInvitations() {
+    public Set<Invitation> getInvitations() {
         return invitations;
     }
 
-    public void setInvitations(List<Invitation> invitations) {
+    public void setInvitations(Set<Invitation> invitations) {
         this.invitations = invitations;
+    }
+
+    @Override
+    public String toString() {
+        return "Guest{" +
+                "id=" + getId() +
+                ", firstName='" + getFirstName() + "'" +
+                ", lastName='" + getLastName() + "'" +
+                ", email='" + getEmail() + "'" +
+                "}";
     }
 }

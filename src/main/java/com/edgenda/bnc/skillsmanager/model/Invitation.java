@@ -1,50 +1,42 @@
 package com.edgenda.bnc.skillsmanager.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.PersistenceConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
+/**
+ * A Invitation.
+ */
 @Entity
-public class Invitation {
+@Table(name = "invitation")
+public class Invitation implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    enum status {
-        ACCEPTED,
-        PENDING,
-        REFUSED
-    }
+    @NotNull
+    @Column(name = "subject", nullable = false)
+    private String subject;
 
-    @NotEmpty
-    private long eventId;
+    @ManyToOne
+    @JsonIgnoreProperties
+    private Event event;
 
-    @NotEmpty
-    private long guestId;
+    @ManyToOne
+    @JsonIgnoreProperties
+    private Guest guest;
 
-    @NotEmpty
-    private String state;
-
-    public Invitation() {
-    }
-
-    public Invitation(Long id, long eventId, long guestId, String status) {
-        this.id = id;
-        this.eventId = eventId;
-        this.guestId = guestId;
-        this.state = status;
-    }
-
-    @PersistenceConstructor
-    public Invitation(long eventId, long guestId, String status) {
-        this.eventId = eventId;
-        this.guestId = guestId;
-        this.state = status;
-    }
+    @Enumerated(value = EnumType.STRING)
+    @JsonProperty(access = Access.WRITE_ONLY)
+    private InvitationStatus invitationStatus;
 
     public Long getId() {
         return id;
@@ -54,27 +46,35 @@ public class Invitation {
         this.id = id;
     }
 
-    public long getEventId() {
-        return eventId;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setEventId(long eventId) {
-        this.eventId = eventId;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public long getGuestId() {
-        return guestId;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setGuestId(long guestId) {
-        this.guestId = guestId;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
-    public String getState() {
-        return state;
+    public Guest getGuest() {
+        return guest;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
+    public InvitationStatus getInvitationStatus() {
+        return invitationStatus;
+    }
+
+    public void setInvitationStatus(InvitationStatus invitationStatus) {
+        this.invitationStatus = invitationStatus;
     }
 }

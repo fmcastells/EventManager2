@@ -1,78 +1,56 @@
 package com.edgenda.bnc.skillsmanager.model;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.PersistenceConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * A Event.
+ */
 @Entity
-public class Event {
+@Table(name = "event")
+public class Event implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotEmpty
+    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @NotEmpty
+    @Column(name = "description")
     private String description;
 
-    @NotEmpty
-    @Column(name = "startDate", columnDefinition = "TIMESTAMP")
-    @JsonProperty("startDate")
-    private LocalDateTime startDate;
+    @NotNull
+    @Column(name = "start_date", nullable = false)
+    private Instant startDate;
 
-    @NotEmpty
-    @Column(name = "endDate", columnDefinition = "TIMESTAMP")
-    private LocalDateTime endDate;
+    @NotNull
+    @Column(name = "end_date", nullable = false)
+    private Instant endDate;
 
-    @NotEmpty
+    @Column(name = "location")
     private String location;
 
-    @ManyToMany
-    @JoinTable(name = "GUEST_LIST")
-    private List<Guest> guests;
+    @Enumerated(value = EnumType.STRING)
+    @JsonProperty(access = Access.WRITE_ONLY)
+    private EventStatus eventStatus;
 
-    @ManyToMany
-    @JoinTable(name = "INVITATION_EVENT_LIST")
-    private List<Invitation> invitations;
-
-
-    public Event() {
-    }
-
-    public Event(Long id, String name, String description, LocalDateTime startDate,LocalDateTime endDate, String location, List<Guest> guests, List<Invitation> invitations) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.guests = guests;
-        this.invitations = invitations;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.location = location;
-
-    }
-
-    @PersistenceConstructor
-    public Event(String name, String description, LocalDateTime startDate,LocalDateTime endDate, String location, List<Guest> guests, List<Invitation> invitations) {
-        this.name = name;
-        this.description = description;
-        this.guests = guests;
-        this.invitations = invitations;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.location = location;
-    }
+    @OneToMany(mappedBy = "event")
+    private Set<Invitation> invitations = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -98,19 +76,19 @@ public class Event {
         this.description = description;
     }
 
-    public LocalDateTime getStartDate() {
+    public Instant getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Instant startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public Instant getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(Instant endDate) {
         this.endDate = endDate;
     }
 
@@ -122,19 +100,19 @@ public class Event {
         this.location = location;
     }
 
-    public List<Guest> getGuests() {
-        return guests;
-    }
-
-    public void setGuests(List<Guest> guests) {
-        this.guests = guests;
-    }
-
-    public List<Invitation> getInvitations() {
+    public Set<Invitation> getInvitations() {
         return invitations;
     }
 
-    public void setInvitations(List<Invitation> invitations) {
+    public void setInvitations(Set<Invitation> invitations) {
         this.invitations = invitations;
+    }
+
+    public EventStatus getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(EventStatus eventStatus) {
+        this.eventStatus = eventStatus;
     }
 }

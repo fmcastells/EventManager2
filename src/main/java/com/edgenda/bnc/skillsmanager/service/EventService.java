@@ -1,6 +1,7 @@
 package com.edgenda.bnc.skillsmanager.service;
 
 import com.edgenda.bnc.skillsmanager.model.Event;
+import com.edgenda.bnc.skillsmanager.model.EventStatus;
 import com.edgenda.bnc.skillsmanager.model.Guest;
 import com.edgenda.bnc.skillsmanager.model.Invitation;
 import com.edgenda.bnc.skillsmanager.repository.EventRepository;
@@ -35,6 +36,7 @@ public class EventService {
     @Transactional
     public Event createEvent(Event event){
         Assert.notNull(event, "Event cannot be null");
+        event.setEventStatus(EventStatus.CREATED);
         return eventRepository.save(event);
     }
 
@@ -56,10 +58,10 @@ public class EventService {
         return eventRepository.findByGuestId(guestId);
     }
 
-    public List<Invitation> getInvitationByEventId(Long eventId) {
+/*    public List<Invitation> getInvitationByEventId(Long eventId) {
         Assert.notNull(eventId, "Event ID cannot be null");
         return eventRepository.findById(eventId).get().getInvitations();
-    }
+    }*/
 
    /* public List<Event> getEventsByOrganizerId(Long organizerID) {
         Assert.notNull(organizerID, "Guest ID cannot be null");
@@ -86,7 +88,7 @@ public class EventService {
             return eventRepository.findByPeriod(from,to);
     }
 
-    public Event addEventToGuest(Long guestId, Long eventID){
+   /* public Event addEventToGuest(Long guestId, Long eventID){
         Guest existingGuest = guestService.getGuestById(guestId);
         Event existingEvent = getEventById(eventID);
         if(Objects.nonNull(existingGuest) && Objects.nonNull(existingEvent)){
@@ -94,5 +96,5 @@ public class EventService {
             return eventRepository.save(existingEvent);
         }
         return null;
-    }
+    }*/
 }
